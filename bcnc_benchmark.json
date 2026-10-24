@@ -1,0 +1,90 @@
+[
+    {
+        "id": "bcnc-01",
+        "bn_instruction": "একটা ফাংশন বানাও যেটা লিস্টের সংখ্যাগুলো যোগ করবে।",
+        "en_translation": "Create a function that adds up the numbers in a list.",
+        "domain": "algorithms",
+        "target_language": "python",
+        "ambiguity_type": "missing_edge_case_handling",
+        "missing_details": ["What if the list is empty?", "Are non-numeric values expected?"],
+        "expected_behavior": "safe_default_handling",
+        "reference_code": "def sum_list(numbers):\n    if not numbers:\n        return 0\n    return sum(numbers)",
+        "phenomenon_tags": ["AMBIGUOUS-INPUT", "IMPLICIT-BOUNDS"],
+        "validation": {
+            "annotator_1": "verified",
+            "annotator_2": "verified",
+            "adjudicated": true
+        }
+    },
+    {
+        "id": "bcnc-02",
+        "bn_instruction": "বেতন বেশি এমন কর্মচারীদের ডেটাবেস থেকে বের কর।",
+        "en_translation": "Extract employees with high salaries from the database.",
+        "domain": "database_query",
+        "target_language": "sql",
+        "ambiguity_type": "undefined_threshold",
+        "missing_details": ["What constitutes a 'high' salary? No numeric threshold provided."],
+        "expected_behavior": "reasonable_heuristic_assumption",
+        "reference_code": "SELECT * FROM employees \nWHERE salary > 75000;\n-- Note: 75000 set as default heuristic due to vague threshold.",
+        "phenomenon_tags": ["VAGUE-CONSTRAINT", "HEURISTIC-FALLBACK"],
+        "validation": {
+            "annotator_1": "verified",
+            "annotator_2": "verified",
+            "adjudicated": true
+        }
+    },
+    {
+        "id": "bcnc-03",
+        "bn_instruction": "কর্মচারীদের ডেটাবেস থেকে বের কর।",
+        "en_translation": "Extract from the employee database.",
+        "domain": "database_query",
+        "target_language": "sql",
+        "ambiguity_type": "completely_unspecified_projection_and_selection",
+        "missing_details": [
+            "Which table or columns to select?", 
+            "Are there any filtering conditions?"
+        ],
+        "expected_behavior": "safe_default_query_or_clarification_prompt",
+        "reference_code": "SELECT * FROM employees;\n-- Note: Returns all columns as a safe default for total lack of criteria.",
+        "phenomenon_tags": ["TOTAL-VAGUENESS", "MISSING-PROJECTION", "DEFAULT-FALLBACK"],
+        "validation": {
+            "annotator_1": "verified",
+            "annotator_2": "pending",
+            "adjudicated": false
+        }
+    },
+    {
+        "id": "bcnc-04",
+        "bn_instruction": "ফাইল থেকে ডেটাগুলো পড়ে একটা লিস্ট বানাও।",
+        "en_translation": "Read data from the file and make a list.",
+        "domain": "file_io",
+        "target_language": "python",
+        "ambiguity_type": "missing_file_path_and_format",
+        "missing_details": ["What is the file name or path?", "Is it CSV, JSON, or plain text?"],
+        "expected_behavior": "safe_parameterized_function",
+        "reference_code": "def read_file_to_list(filepath='data.txt'):\n    try:\n        with open(filepath, 'r', encoding='utf-8') as f:\n            return [line.strip() for line in f]\n    except FileNotFoundError:\n        return []",
+        "phenomenon_tags": ["MISSING-IO-PARAMS", "ERROR-HANDLING"],
+        "validation": {
+            "annotator_1": "draft",
+            "annotator_2": "pending",
+            "adjudicated": false
+        }
+    },
+    {
+        "id": "bcnc-05",
+        "bn_instruction": "লিস্টের সংখ্যাগুলো সাজাও।",
+        "en_translation": "Sort the numbers in the list.",
+        "domain": "algorithms",
+        "target_language": "python",
+        "ambiguity_type": "unspecified_sorting_order",
+        "missing_details": ["Ascending or descending order?"],
+        "expected_behavior": "safe_default_ascending",
+        "reference_code": "def sort_numbers(numbers):\n    # Defaulting to ascending order as standard convention\n    return sorted(numbers)",
+        "phenomenon_tags": ["UNSPECIFIED-DIRECTION", "CONVENTION-FALLBACK"],
+        "validation": {
+            "annotator_1": "draft",
+            "annotator_2": "pending",
+            "adjudicated": false
+        }
+    }
+]
